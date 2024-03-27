@@ -1,7 +1,9 @@
 ![Alt text](view.jpeg?raw=true "Title")
 
 ## download code and run the containers
-###### clone repo
+###### download code
+###### download spark 2.4.8 from https://archive.apache.org/dist/spark/
+###### update the location of spark in compose file "/Users/mubarak/Documents/Demos/spark248"
 ###### cd FruadAnalytics
 ###### docker-compose up
 
