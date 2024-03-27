@@ -32,6 +32,12 @@
 ###### copy job1.py code to the editor
 ###### run code
 
+## check data in SQL
+###### docker exec -t id /bin/bash
+###### mysql -u[username] -p[password]
+###### mysql> select * from fraudtrans
+
+
 ## see output in web App (on port 9000)
 ###### http://localhost:9000
 ###### configure llm key
