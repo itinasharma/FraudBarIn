@@ -1,3 +1,5 @@
+![Alt text](view.jpeg?raw=true "Title")
+
 ## download code and run the containers
 ###### clone repo
 ###### cd FruadAnalytics
