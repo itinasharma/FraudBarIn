@@ -8,7 +8,7 @@
 ###### docker-compose up
 
 ## run producer (on port 9000)
-###### curl --header "Content-Type: application/json" --request POST --data '{"transactionId":"123"}'  http://localhost:9000/add
+###### curl --header "Content-Type: application/json" --request POST --data '{"transaction":"123"}'  http://localhost:9000/add
 
 ## see messages in kafka
 ###### docker images ps
@@ -19,7 +19,8 @@
 ###### kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic my-topic -from-beginning
 ###### /* if you want to write directly */
 ###### kafka-console-producer.sh --broker-list localhost:9092 --topic my-topic
-###### > {“name":"Ronda Shepard", "email":"rondashepard@solaren.com"}
+###### > '{"transaction":"234"}'
+###### > '{"transaction":"456"}'
 ###### > ^c
 
 
