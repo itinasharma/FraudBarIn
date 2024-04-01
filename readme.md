@@ -38,7 +38,7 @@
 ###### docker exec -t id /bin/bash
 ###### mysql -u[username] -p[password]
 ###### mysql -u[username] -p[password]
-###### use FRAUDSDB;
+###### mysql> use FRAUDSDB;
 ###### mysql> select * from fraudtrans;
 
 
