@@ -37,7 +37,9 @@
 ## check data in SQL
 ###### docker exec -t id /bin/bash
 ###### mysql -u[username] -p[password]
-###### mysql> select * from fraudtrans
+###### mysql -u[username] -p[password]
+###### use FRAUDSDB;
+###### mysql> select * from fraudtrans;
 
 
 ## see output in web App (on port 9000)
