@@ -26,7 +26,7 @@ df.show(5)
 cols = ['value_str']
 df = df.select(*cols)
 
-df = df.selectExpr("value_str as transactionId")
+df = df.selectExpr("value_str as transaction")
 
 df.write \
   .format("jdbc") \
