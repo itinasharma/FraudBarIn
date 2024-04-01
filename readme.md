@@ -40,7 +40,7 @@
 ###### run code
 
 ## check data in SQL
-###### docker exec -t id /bin/bash
+###### docker exec -it id /bin/bash
 ###### mysql -u[username] -p[password]
 ###### mysql -u[username] -p[password]
 ###### mysql> use FRAUDSDB;
