@@ -27,7 +27,7 @@ def load_chain():
     db_user = "root"
     db_password = "abc"
     db_host = "mysql"
-    db_name = "frauds"
+    db_name = "FRAUDSDB"
     connection_string = f"mysql+pymysql://{db_user}:{db_password}@{db_host}/{db_name}"
     engine = create_engine(connection_string)
 
