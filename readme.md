@@ -1,5 +1,9 @@
 ![Alt text](view.jpeg?raw=true "Title")
 
+## Clean up
+###### docker stop $(docker ps -a -q)
+###### docker rm $(docker ps -a -q)
+
 ## download code and run the containers
 ###### download code
 ###### download spark 2.4.8 from https://archive.apache.org/dist/spark/
