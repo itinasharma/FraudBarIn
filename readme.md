@@ -1,8 +1,14 @@
 ![Alt text](view.jpeg?raw=true "Title")
 
 ## Clean up
+stop all containers
 ###### docker stop $(docker ps -a -q)
+remove all containers
 ###### docker rm $(docker ps -a -q)
+delete producer image
+###### docker rmi <id>
+delete web image
+###### docker rmi <id>
 
 ## download code and run the containers
 ###### download code
