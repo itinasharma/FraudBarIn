@@ -34,7 +34,7 @@ df.write \
   .option("driver","com.mysql.cj.jdbc.Driver") \
   .option("url", "jdbc:mysql://mysql:3306/FRAUDSDB") \
   .option("useSSL",False) \
-  .option("dbtable", "frauds") \
+  .option("dbtable", "fraudtrans") \
   .option("user", "root") \
   .option("password", "abc") \
   .save()
