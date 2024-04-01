@@ -1,7 +1,7 @@
 /* Create the database */
-CREATE DATABASE  IF NOT EXISTS frauds;
+CREATE DATABASE  IF NOT EXISTS FRAUDSDB;
 
-USE frauds;
+USE FRAUDSDB;
 
 /* Drop existing tables  */
 DROP TABLE IF EXISTS fraudtrans;
