@@ -32,7 +32,7 @@ df.write \
   .format("jdbc") \
   .mode("append")  \
   .option("driver","com.mysql.cj.jdbc.Driver") \
-  .option("url", "jdbc:mysql://mysql:3306/FRAUDDB") \
+  .option("url", "jdbc:mysql://mysql:3306/FRAUDSDB") \
   .option("useSSL",False) \
   .option("dbtable", "frauds") \
   .option("user", "root") \
