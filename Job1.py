@@ -7,6 +7,8 @@ master = "local"
 spark = SparkSession.builder \
     .master(master) \
     .appName(appName) \
+    .config("org.apache.spark:spark-sql-kafka-0-10_2.11:2.4.8") \
+    .config("mysql:mysql-connector-java:8.0.11") \
     .getOrCreate()
 
 kafka_servers = "kafka:9092"
@@ -38,4 +40,9 @@ df.write \
   .option("user", "root") \
   .option("password", "abc") \
   .save()
+  
+  
+  
+
+
   
