@@ -53,8 +53,8 @@ delete web image
 ###### mysql> select * from fraudtrans;
 
 
-## see output in web App (on port 9000)
-###### http://localhost:9000
+## see output in web App (on port 8000)
+###### http://localhost:8000
 ###### configure llm key
 ###### run query "show all frauds"
 
