@@ -18,7 +18,7 @@ def insert_record(row):
         connection = mysql.connector.connect(host="mysql",port=3306,database="FRAUDSDB",user="root",password="abc")
         
         if not connection.is_connected():
-            print(""failed to connect to sql")
+            print("failed to connect to sql")
             return
         
         sql_insert_query = "INSERT INTO fraudtrans (transaction) VALUES ('" + transaction_value + "')"
