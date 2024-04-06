@@ -48,7 +48,7 @@ delete web image
 ## check data in SQL
 ###### docker exec -it id /bin/bash
 ###### mysql -u[username] -p[password]
-###### mysql -uabc -proot
+###### mysql -uroot -pabc
 ###### mysql> use FRAUDSDB;
 ###### mysql> select * from fraudtrans;
 
