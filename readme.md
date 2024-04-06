@@ -41,6 +41,10 @@ delete web image
 ###### org.apache.spark:spark-sql-kafka-0-10_2.11:2.4.8 
 ###### mysql:mysql-connector-java:8.0.11
 
+## in zeppelin editor install mysql connector 
+###### %sh
+###### pip install mysql-connector-python
+
 ## run Spark job
 ###### copy job1.py code to the editor
 ###### run code
