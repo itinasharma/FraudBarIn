@@ -29,8 +29,8 @@ delete web image
 ###### kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic my-topic -from-beginning
 ###### /* if you want to write directly */
 ###### kafka-console-producer.sh --broker-list localhost:9092 --topic my-topic
-###### > '{"transaction":"234"}'
-###### > '{"transaction":"456"}'
+###### > {"transaction":"234"}
+###### > {"transaction":"456"}
 ###### > ^c
 
 
