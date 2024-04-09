@@ -46,7 +46,7 @@ delete web image
 ###### pip install mysql-connector-python
 
 ## run Spark job
-###### copy job2.py code to the editor
+###### copy StreamJob.py code to the editor
 ###### run code
 
 ## check data in SQL
