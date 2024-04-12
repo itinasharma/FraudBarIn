@@ -70,3 +70,4 @@ delete web image
 ## reference
 ###### https://github.com/tankwin08/PySpark_Fraud_detection_ML/blob/master/pyspark_RF_fraud_detection.ipynb
 ###### https://www.linkedin.com/pulse/build-machine-learning-model-detect-fraudulent-using-mich-rkxje/
+###### http://umu.diva-portal.org/smash/get/diva2:1772824/FULLTEXT01.pdf
