@@ -62,7 +62,10 @@ delete web image
 ###### configure llm key
 ###### run query "show all frauds"
 
-
+## data
+###### https://www.kaggle.com/code/turkayavci/fraud-detection-on-bank-payments/input?select=bsNET140513_032310.csv
+###### https://www.kaggle.com/code/turkayavci/fraud-detection-on-bank-payments/notebook
+###### https://github.com/atavci/fraud-detection-on-banksim-data/blob/master/Fraud%20Detection%20on%20Bank%20Payments.ipynb
 
 ## reference
 ###### https://github.com/tankwin08/PySpark_Fraud_detection_ML/blob/master/pyspark_RF_fraud_detection.ipynb
