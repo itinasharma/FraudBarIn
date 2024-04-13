@@ -11,8 +11,8 @@ spark.sparkContext.setLogLevel("INFO")
 
 # function to insert fraud record to mysql database
 def insert_record(row):
-    transaction_value = row["transaction"]
-    print(f"Transaction value: {transaction_value}")
+    #transaction_value = row["transaction"]
+    #print(f"Transaction value: {transaction_value}")
     try:
         # Connect to MySQL database
         connection = mysql.connector.connect(host="mysql",port=3306,database="FRAUDSDB",user="root",password="abc")
