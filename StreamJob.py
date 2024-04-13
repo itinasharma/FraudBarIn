@@ -21,7 +21,14 @@ def insert_record(row):
             print("failed to connect to sql")
             return
         
-        sql_insert_query = "INSERT INTO fraudtrans (transaction) VALUES ('" + transaction_value + "')"
+        sql_insert_query = "INSERT INTO fraudtrans (transaction) VALUES ('" +  row["Timestamp"] + "','" +
+        row["TransactionID"] + "','" +
+        row["AccountID"] + "','" +
+        row["Amount"] + "','" +
+        row["Merchant"] + "','" +
+        row["TransactionType"] + "','" +
+        row["Location"] + "')"
+        
         # Create a cursor object to execute SQL queries
         cursor = connection.cursor()
         cursor.execute(sql_insert_query)
