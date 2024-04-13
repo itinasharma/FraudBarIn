@@ -78,12 +78,4 @@ delete web image
 - Location: Indicates the place where the transaction occurred. It could be a physical location (e.g., city, country) or an identifier (e.g., store code, online portal), aiding in analyzing geographical spending patterns or detecting anomalies based on unusual transaction locations.
 
 ###### https://www.kaggle.com/datasets/devondev/financial-anomaly-data/data?select=financial_anomaly_data.csv
-###### https://www.kaggle.com/datasets/mohammadbolandraftar/my-dataset/data?select=Clickstream+dataset.csv
-###### https://www.kaggle.com/code/turkayavci/fraud-detection-on-bank-payments/input?select=bsNET140513_032310.csv
-###### https://www.kaggle.com/code/turkayavci/fraud-detection-on-bank-payments/notebook
-###### https://github.com/atavci/fraud-detection-on-banksim-data/blob/master/Fraud%20Detection%20on%20Bank%20Payments.ipynb
 
-## reference
-###### https://github.com/tankwin08/PySpark_Fraud_detection_ML/blob/master/pyspark_RF_fraud_detection.ipynb
-###### https://www.linkedin.com/pulse/build-machine-learning-model-detect-fraudulent-using-mich-rkxje/
-###### http://umu.diva-portal.org/smash/get/diva2:1772824/FULLTEXT01.pdf
