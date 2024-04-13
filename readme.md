@@ -18,7 +18,9 @@ delete web image
 ###### docker-compose up
 
 ## run producer (on port 9000)
-###### curl --header "Content-Type: application/json" --request POST --data "{\"transaction\":\"123\"}" http://localhost:9000/add
+###### curl --header "Content-Type: application/json" --request POST --data  
+###### "{\"Timestamp\":\"123\",\"TransactionID\":\"123\", \"AccountID\":\"123\", \"Amount\":\"123\", \"Merchant\":\"123\", \"TransactionType\":\"123\",\"Location\":\"123\"}"
+###### http://localhost:9000/add
 
 ## see messages in kafka
 ###### docker images ps
