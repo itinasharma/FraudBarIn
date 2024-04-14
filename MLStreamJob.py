@@ -19,8 +19,9 @@ autoencoder_model = PipelineModel.load(model_path)
 # function to insert fraud record to mysql database
 def insert_record(row):
     pass
-    #transaction_value = row["transaction"]
-    #print(f"Transaction value: {transaction_value}")
+    prediction_value = row["prediction"]
+    Amount_value = row["Amount"]
+    #print(f" Actual: {Amount_value} Predicted : {prediction_value}")
     try:
         # Connect to MySQL database
         connection = mysql.connector.connect(host="mysql",port=3306,database="FRAUDSDB",user="root",password="abc")
@@ -32,13 +33,13 @@ def insert_record(row):
         print("inserting record" + row["TransactionID"])
         sql_insert_query = "INSERT INTO fraudtrans VALUES ('" +  row["Timestamp"] + "','" + \
         row["TransactionID"] + "','" + \
-        row["AccountID"] + "','" + \
-        row["Amount"] + "','" + \
+        row["AccountID"] + "'," + \
+        str(row["Amount"]) + ",'" + \
         row["Merchant"] + "','" + \
         row["TransactionType"] + "','" + \
         row["Location"] + "')"
         
-        print("inserted record" + row["TransactionID"])
+        print(sql_insert_query)
         # Create a cursor object to execute SQL queries
         cursor = connection.cursor()
         cursor.execute(sql_insert_query)
@@ -47,15 +48,13 @@ def insert_record(row):
     except mysql.connector.Error as error:
         print("Error while connecting to MySQL", error)
     finally:
-        # Close the cursor and connection
         if 'connection' in locals() and connection.is_connected():
-            #cursor.close()
+            cursor.close()
             connection.close()
-            print("MySQL connection is closed")
 
 # Step 1. Create Spark Session
 # a SparkSession is a unified entry point for working with structured data. It provides a way to interact with various Spark functionality
-appName = "Kafka Examples"
+appName = "Kafka Examples2"
 master = "local"
 spark = SparkSession.builder \
     .master(master) \
@@ -93,14 +92,18 @@ predictions = autoencoder_model.transform(parsed_df)
 
 # Filter anomalies based on reconstruction error threshold
 threshold = 50  # Example threshold, adjust as per your model's performance
-anomalies_df = predictions.filter("abs(Amount - prediction) > 50")
+#anomalies_df = predictions.filter("abs(Amount - prediction) >= threshold")
+anomalies_df = predictions.filter("abs(Amount - prediction) >= 0")
+
+anomalies_df.printSchema()
 
 # step 4. write the message to mysql
 query = anomalies_df \
     .writeStream \
     .foreach(insert_record) \
     .start()
-
+#.option("checkpointLocation", "/tmp/cp/") \
+    
 # step 5. wait for data from kafka topic
 query.awaitTermination()
 spark.stop()
