@@ -26,6 +26,7 @@ services:
       - 4040:4040
     volumes:
       - /Users/mubarak/Documents/Demos/spark248:/opt/spark
+      - /Users/mubarak/Documents/Demos/data:/data
     environment:
       - SPARK_HOME=/opt/spark
     image: apache/zeppelin:0.10.0
