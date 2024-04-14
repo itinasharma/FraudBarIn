@@ -8,5 +8,11 @@ DROP TABLE IF EXISTS fraudtrans;
 
 /* Create the tables */
 CREATE TABLE fraudtrans(
-  transaction varchar(500)
+Timestamp varchar(100),
+TransactionID varchar(100),
+AccountID varchar(100), 
+Amount DECIMAL(18,2), 
+Merchant varchar(100), 
+TransactionType varchar(100),
+Location varchar(100)
 );
