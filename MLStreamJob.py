@@ -67,7 +67,7 @@ df = spark.readStream \
     .format("kafka") \
     .option("kafka.bootstrap.servers", kafka_servers) \
     .option("subscribe", "my-topic") \
-    .option("startingOffsets", "earliest") \
+    .option("startingOffsets", "latest") \
     .load() \
 
 df.printSchema()
@@ -101,8 +101,8 @@ anomalies_df.printSchema()
 query = anomalies_df \
     .writeStream \
     .foreach(insert_record) \
+    .option("checkpointLocation", "/tmp/cp/") \
     .start()
-#.option("checkpointLocation", "/tmp/cp/") \
     
 # step 5. wait for data from kafka topic
 query.awaitTermination()
