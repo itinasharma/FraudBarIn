@@ -1,22 +1,5 @@
 ![Alt text](view.jpeg?raw=true "Title")
 
-## Clean up
-stop all containers
-###### docker stop $(docker ps -a -q)
-remove all containers
-###### docker rm $(docker ps -a -q)
-delete producer image
-###### docker rmi <id>
-delete web image
-###### docker rmi <id>
-
-## download code and run the containers
-###### download code
-###### download spark 2.4.8 from https://archive.apache.org/dist/spark/
-###### update the location of spark in compose file "/Users/mubarak/Documents/Demos/spark248"
-###### cd FraudAnalytics
-###### docker-compose up
-
 ## data
 - Timestamp: This column records the date and time when the transaction occurred. It helps in understanding the temporal aspect of transactions, such as patterns over time, frequency, and clustering of activities.
 
@@ -32,7 +15,29 @@ delete web image
 
 - Location: Indicates the place where the transaction occurred. It could be a physical location (e.g., city, country) or an identifier (e.g., store code, online portal), aiding in analyzing geographical spending patterns or detecting anomalies based on unusual transaction locations.
 
+###### download data 
 ###### https://www.kaggle.com/datasets/devondev/financial-anomaly-data/data?select=financial_anomaly_data.csv
+
+## Clean up
+stop all containers
+###### docker stop $(docker ps -a -q)
+remove all containers
+###### docker rm $(docker ps -a -q)
+delete producer image
+###### docker rmi <id>
+delete web image
+###### docker rmi <id>
+
+## download code and run the containers
+###### download spark 2.4.8 from https://archive.apache.org/dist/spark/
+###### update the location of spark in compose file "/Users/mubarak/Documents/Demos/spark248"
+###### download data
+###### update the location of data in compose file "/Users/mubarak/Documents/Demos/data"
+###### download code
+###### cd FraudAnalytics
+###### docker-compose up
+
+
 
 ## run producer (on port 9000)
 ###### curl --header "Content-Type: application/json" --request POST --data "{\"Timestamp\":\"01-01-2023 08:00\",\"TransactionID\":\"TXN1127\", \"AccountID\":\"ACC4\", \"Amount\":95071.92, \"Merchant\":\"MerchantH\", \"TransactionType\":\"Purchase\",\"Location\":\"Tokyo\"}" http://localhost:9000/add
@@ -54,6 +59,10 @@ delete web image
 ## open zeppelin editor (on port 8080)
 ###### http://localhost:8080/
 
+## Train the model
+###### copy MLModelTrain.py code to the editor
+###### train the model
+
 ## configure Spark interpeter
 ###### org.apache.spark:spark-sql-kafka-0-10_2.11:2.4.8 
 
@@ -62,7 +71,7 @@ delete web image
 ###### pip install mysql-connector-python
 
 ## run Spark job
-###### copy StreamJob.py code to the editor
+###### copy MLStreamJob.py code to the editor
 ###### run code
 
 ## check data in SQL
@@ -71,7 +80,6 @@ delete web image
 ###### mysql -uroot -pabc
 ###### mysql> use FRAUDSDB;
 ###### mysql> select * from fraudtrans;
-
 
 ## see output in web App (on port 8000)
 ###### http://localhost:8000
