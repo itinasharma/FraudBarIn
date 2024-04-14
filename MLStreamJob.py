@@ -11,11 +11,6 @@ from pyspark.sql.types import *
 
 spark.sparkContext.setLogLevel("INFO")
 
-# Load the pre-trained autoencoder model
-model_path = "/tmp/models/autoencoder_model"
-autoencoder_model = PipelineModel.load(model_path)
-
-
 # function to insert fraud record to mysql database
 def insert_record(row):
     pass
@@ -61,7 +56,11 @@ spark = SparkSession.builder \
     .appName(appName) \
     .getOrCreate()
 
-# Step 2. Connect and read from kafka topic
+# Step 2. Load the pre-trained model
+model_path = "/tmp/models/autoencoder_model"
+autoencoder_model = PipelineModel.load(model_path)
+
+# Step 3. Connect and read from kafka topic
 kafka_servers = "kafka:9092"
 df = spark.readStream \
     .format("kafka") \
@@ -69,10 +68,9 @@ df = spark.readStream \
     .option("subscribe", "my-topic") \
     .option("startingOffsets", "latest") \
     .load() \
-
 df.printSchema()
 
-# Step 3. format the message
+# Step 4. format the message
 json_schema = StructType().add("Timestamp",StringType()) \
     .add("TransactionID",StringType()) \
     .add("AccountID",StringType()) \
@@ -87,23 +85,22 @@ parsed_df = df \
     .select("data.*")
 parsed_df.printSchema()
 
-# Make predictions on streaming data using the autoencoder model
+# Step 5. Make predictions on streaming data using the autoencoder model
 predictions = autoencoder_model.transform(parsed_df)
 
-# Filter anomalies based on reconstruction error threshold
+# Step 6. Filter anomalies based on threshold
 threshold = 50  # Example threshold, adjust as per your model's performance
 #anomalies_df = predictions.filter("abs(Amount - prediction) >= threshold")
 anomalies_df = predictions.filter("abs(Amount - prediction) >= 0")
-
 anomalies_df.printSchema()
 
-# step 4. write the message to mysql
+# step 7. write the anomalies to mysql database
 query = anomalies_df \
     .writeStream \
     .foreach(insert_record) \
     .option("checkpointLocation", "/tmp/cp/") \
     .start()
     
-# step 5. wait for data from kafka topic
+# step 8. wait for data from kafka topic
 query.awaitTermination()
 spark.stop()
