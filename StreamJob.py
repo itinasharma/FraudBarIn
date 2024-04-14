@@ -11,6 +11,7 @@ spark.sparkContext.setLogLevel("INFO")
 
 # function to insert fraud record to mysql database
 def insert_record(row):
+    pass
     #transaction_value = row["transaction"]
     #print(f"Transaction value: {transaction_value}")
     try:
@@ -21,27 +22,29 @@ def insert_record(row):
             print("failed to connect to sql")
             return
         
-        sql_insert_query = "INSERT INTO fraudtrans (transaction) VALUES ('" +  row["Timestamp"] + "','" +
-        row["TransactionID"] + "','" +
-        row["AccountID"] + "','" +
-        row["Amount"] + "','" +
-        row["Merchant"] + "','" +
-        row["TransactionType"] + "','" +
+        print("inserting record" + row["TransactionID"])
+        sql_insert_query = "INSERT INTO fraudtrans VALUES ('" +  row["Timestamp"] + "','" + \
+        row["TransactionID"] + "','" + \
+        row["AccountID"] + "','" + \
+        row["Amount"] + "','" + \
+        row["Merchant"] + "','" + \
+        row["TransactionType"] + "','" + \
         row["Location"] + "')"
         
+        print("inserted record" + row["TransactionID"])
         # Create a cursor object to execute SQL queries
         cursor = connection.cursor()
         cursor.execute(sql_insert_query)
         connection.commit()
+        
     except mysql.connector.Error as error:
         print("Error while connecting to MySQL", error)
     finally:
         # Close the cursor and connection
         if 'connection' in locals() and connection.is_connected():
-            cursor.close()
+            #cursor.close()
             connection.close()
             print("MySQL connection is closed")
-   
 
 # Step 1. Create Spark Session
 # a SparkSession is a unified entry point for working with structured data. It provides a way to interact with various Spark functionality
@@ -64,7 +67,14 @@ df = spark.readStream \
 df.printSchema()
 
 # Step 3. format the message
-json_schema = StructType().add("transaction",StringType())
+json_schema = StructType().add("Timestamp",StringType()) \
+    .add("TransactionID",StringType()) \
+    .add("AccountID",StringType()) \
+    .add("Amount",StringType()) \
+    .add("Merchant",StringType()) \
+    .add("TransactionType",StringType()) \
+    .add("Location",StringType())
+    
 parsed_df = df \
     .selectExpr("CAST(value AS STRING)") \
     .select(from_json("value",json_schema).alias("data")) \
