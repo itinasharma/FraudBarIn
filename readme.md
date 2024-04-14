@@ -28,7 +28,7 @@ delete producer image
 delete web image
 ###### docker rmi <id>
 
-## download code and run the containers
+## download code, data and run the containers
 ###### download spark 2.4.8 from https://archive.apache.org/dist/spark/
 ###### update the location of spark in compose file "/Users/mubarak/Documents/Demos/spark248"
 ###### download data
