@@ -35,9 +35,7 @@ delete web image
 ###### https://www.kaggle.com/datasets/devondev/financial-anomaly-data/data?select=financial_anomaly_data.csv
 
 ## run producer (on port 9000)
-###### curl --header "Content-Type: application/json" --request POST --data  
-###### "{\"Timestamp\":\"01-01-2023 08:00\",\"TransactionID\":\"TXN1127\", \"AccountID\":\"ACC4\", \"Amount\":\"95071.92\", \"Merchant\":\"MerchantH\", \"TransactionType\":\"Purchase\",\"Location\":\"Tokyo\"}"
-###### http://localhost:9000/add
+###### curl --header "Content-Type: application/json" --request POST --data "{\"Timestamp\":\"01-01-2023 08:00\",\"TransactionID\":\"TXN1127\", \"AccountID\":\"ACC4\", \"Amount\":95071.92, \"Merchant\":\"MerchantH\", \"TransactionType\":\"Purchase\",\"Location\":\"Tokyo\"}" http://localhost:9000/add
 
 ## see messages in kafka
 ###### docker images ps
