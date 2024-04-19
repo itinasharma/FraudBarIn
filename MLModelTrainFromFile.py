@@ -18,6 +18,16 @@ df = spark.read.csv("/data/financial_anomaly_data.csv",header=True, inferSchema=
 
 for i, column in enumerate(columns):
     df = df.withColumnRenamed(df.columns[i], column)
+# Display schema and first few rows of the DataFrame
+df.printSchema()
+df.show(5, truncate=False)
+
+# Data Cleaning and Preprocessing
+# Assuming 'Timestamp' is in string format, convert it to datetime
+df = df.withColumn("Timestamp", col("Timestamp").cast("timestamp"))
+
+# Filter out rows with null values in 'Amount'
+df_cleaned = df.filter(df["Amount"].isNotNull())
 
 #df = df.withColumn("Amount",col("Amount").cast(DecimalType(18,2)))
 
