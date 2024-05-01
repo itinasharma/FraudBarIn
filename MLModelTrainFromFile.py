@@ -41,10 +41,10 @@ autoencoder = LinearRegression(featuresCol="features", labelCol="Amount")
 pipeline = Pipeline(stages=[assembler, autoencoder])
 
 # Train the autoencoder model
-model = pipeline.fit(df)
+model = pipeline.fit(df_cleaned)
 
 # Evaluate the model
-predictions = model.transform(df)
+predictions = model.transform(df_cleaned)
 evaluator = RegressionEvaluator(labelCol="Amount", predictionCol="prediction", metricName="rmse")
 rmse = evaluator.evaluate(predictions)
 print("Root Mean Squared Error (RMSE) on training data = %g" % rmse)
