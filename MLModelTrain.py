@@ -1,51 +1,54 @@
 %spark.pyspark
-
+# Import necessary libraries
 from pyspark.sql import SparkSession
 from pyspark.ml.feature import VectorAssembler
+from pyspark.ml.clustering import KMeans
 from pyspark.ml import Pipeline
-from pyspark.sql.functions import from_json, col
-from pyspark.ml.regression import LinearRegression
-from pyspark.ml.evaluation import RegressionEvaluator
+from pyspark.sql.functions import col
 from pyspark.sql.types import *
 
 # Create SparkSession
 spark = SparkSession.builder \
-    .appName("AutoencoderTraining") \
+    .appName("FinancialAnomalyDetection") \
     .getOrCreate()
 
-# Sample data, replace this with your actual data
-data = [("01-01-2023 08:00","TXN1127", "ACC4", 95071.92, "MerchantH", "Purchase", "Tokyo"),
-        ("01-01-2023 08:01","TXN1639","ACC10", 15607.89, "MerchantH", "Purchase", "London"),
-        ("01-01-2023 08:02","TXN1127","ACC8", 65092.34, "MerchantE", "Withdrawal", "London"),
-        ("01-01-2023 08:03","TXN872","ACC6", 87.87, "MerchantE", "Purchase", "London"),
-        ("01-01-2023 08:04","TXN1338","ACC4", 716.56, "MerchantI", "Purchase", "Los Angeles")]
+try:
+    # Load the dataset
+    df = spark.read.csv("/data/financial_anomaly_data.csv", header=True, inferSchema=True)
 
-schema = ["Timestamp","TransactionID", "AccountID", "Amount", "Merchant", "TransactionType","Location"]
-df = spark.createDataFrame(data, schema)
+    # Display schema and first few rows of the DataFrame
+    df.printSchema()
+    df.show(5, truncate=False)
 
-df = df.withColumn("Amount",col("Amount").cast(DecimalType(18,2)))
+    # Data Cleaning and Preprocessing
+    # Assuming 'Timestamp' is in string format, convert it to datetime
+    df = df.withColumn("Timestamp", col("Timestamp").cast("timestamp"))
 
-# Assemble features
-assembler = VectorAssembler(inputCols=["Amount"], outputCol="features")
+    # Filter out rows with null values in 'Amount'
+    df_cleaned = df.filter(df["Amount"].isNotNull())
 
-# Define autoencoder model
-autoencoder = LinearRegression(featuresCol="features", labelCol="Amount")
+    # Assemble features for clustering (using 'Amount' only)
+    assembler = VectorAssembler(inputCols=["Amount"], outputCol="features")
 
-# Create pipeline
-pipeline = Pipeline(stages=[assembler, autoencoder])
+    # Define K-Means model
+    kmeans = KMeans(featuresCol="features", k=3, seed=123)
 
-# Train the autoencoder model
-model = pipeline.fit(df)
+    # Create pipeline
+    pipeline = Pipeline(stages=[assembler, kmeans])
 
-# Evaluate the model
-predictions = model.transform(df)
-evaluator = RegressionEvaluator(labelCol="Amount", predictionCol="prediction", metricName="rmse")
-rmse = evaluator.evaluate(predictions)
-print("Root Mean Squared Error (RMSE) on training data = %g" % rmse)
+    # Fit the pipeline to the cleaned data
+    model = pipeline.fit(df_cleaned)
 
-# Save the trained model
-model_path = "/tmp/models/autoencoder_model"
-model.save(model_path)
+    # Save the trained K-Means model with overwrite option
+    model_path = "/tmp/models/kmeans_model"
+    model.write().overwrite().save(model_path)
 
-# Stop the SparkSession
-spark.stop()
+    print("K-Means model saved successfully.")
+
+except Exception as e:
+    # Handle any exception gracefully
+    print("An error occurred:", str(e))
+
+finally:
+    # Stop the SparkSession
+    spark.stop()
